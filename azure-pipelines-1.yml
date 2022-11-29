@@ -11,7 +11,7 @@ steps:
   inputs:
     command: 'get'
     arguments: '-d'
-    workingDirectory: '*'
+    workingDirectory: '**'
 - task: Go@0
   displayName: "Go Build"
   inputs:
