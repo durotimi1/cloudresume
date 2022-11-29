@@ -1,0 +1,40 @@
+trigger: 
+ - main
+
+pool:
+  vmImage: ubuntu-latest 
+
+variables:
+  - group: dev
+
+steps: 
+
+- task: Go@0
+  displayName: "Go Get"
+  inputs:
+    command: 'get'
+    arguments: '-d'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: Go@0
+  displayName: "Go Build"
+  inputs:
+    command: 'build'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: CopyFiles@2
+  displayName: "Copy Files"
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: 'deployment.yaml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: S3Upload@1
+  inputs:
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    awsCredentials: 'aws_service'
+    regionName: 'us-east-1'
+    bucketName: 'testdep1'
+    globExpressions: '*'
+    createBucket: true
+    keyManagement: 'awsManaged'
+    encryptionAlgorithm: 'AES256'
+    logRequest: true
+    logResponse: true
