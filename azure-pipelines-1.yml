@@ -26,7 +26,7 @@ steps:
 - task: S3Upload@1
   inputs:
     sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    awsCredentials: 'aws_service'
+    awsCredentials: 'azure'
     regionName: 'us-east-1'
     bucketName: 'testdep1'
     globExpressions: '*'
