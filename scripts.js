@@ -30,17 +30,6 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-    const countEl =
-    document.getElementById('count');
-    updateVisitCount();
-    function updateVisitCount() {
-      fetch('api.countapi.xyz/update/florin-pop/youtube/?amount=1')
-      .then(res => res.json())
-      .then(res => {
-      countEl.innerHTML = res.value;
-      });
-
-   }
 });
 
                        
